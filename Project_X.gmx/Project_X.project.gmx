@@ -7,7 +7,11 @@
   <sounds name="sound"/>
   <sprites name="sprites">
     <sprite>sprites\spr_wall</sprite>
+    <sprite>sprites\ground_grass</sprite>
+    <sprite>sprites\vertical_platform</sprite>
     <sprite>sprites\spr_falling_brick</sprite>
+    <sprite>sprites\bg_floating_platform</sprite>
+    <sprite>sprites\Slide_platform</sprite>
     <sprite>sprites\spr_finish</sprite>
     <sprites name="Player">
       <sprite>sprites\spr_attack_right</sprite>
@@ -16,19 +20,21 @@
       <sprite>sprites\spr_player_walk</sprite>
       <sprite>sprites\spr_jump</sprite>
     </sprites>
+    <sprite>sprites\sprite8</sprite>
   </sprites>
   <backgrounds name="background">
     <background>background\bg_clouds</background>
+    <background>background\background1</background>
+    <background>background\sky_blue</background>
   </backgrounds>
   <paths name="paths"/>
   <objects name="objects">
     <object>objects\obj_player</object>
-    <object>objects\obj_wall</object>
-    <object>objects\par_wall</object>
     <object>objects\obj_falling_brick</object>
-    <object>objects\obj_finish</object>
-    <object>objects\obj_falling_platform</object>
-    <object>objects\obj_trick</object>
+    <object>objects\obj_ground_grass</object>
+    <object>objects\obj_floating_platform</object>
+    <object>objects\obj_vertical_platform</object>
+    <object>objects\par_wall</object>
   </objects>
   <rooms name="rooms">
     <room>rooms\rm_skyroom</room>

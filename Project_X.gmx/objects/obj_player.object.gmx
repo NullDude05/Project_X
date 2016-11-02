@@ -66,7 +66,7 @@ if (key_left) {
     if (hsp &gt; -3) { 
     hsp -= 0.15;
     //right wall jump
-    if (place_meeting(x+1, y, obj_wall) &amp;&amp; !place_meeting(x, y+1, obj_wall) &amp;&amp; !key_right) {
+    if (place_meeting(x+1, y, par_wall) &amp;&amp; !place_meeting(x, y+1, par_wall) &amp;&amp; !key_right) {
     vsp = -jsp;
     }
     }
@@ -75,7 +75,7 @@ if (key_right) {
     if (hsp &lt; 3) {
     hsp += 0.15;
     //Left Wall Jump
-    if (place_meeting(x-1, y, obj_wall) &amp;&amp; !place_meeting(x, y+1, obj_wall) &amp;&amp; !key_left) {
+    if (place_meeting(x-1, y, par_wall) &amp;&amp; !place_meeting(x, y+1, par_wall) &amp;&amp; !key_left) {
     vsp = -jsp;
     }
     }
