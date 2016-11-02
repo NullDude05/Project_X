@@ -59,7 +59,7 @@ jsp = 5;
 key_left = keyboard_check_direct(ord("A"));
 key_right = keyboard_check_direct(ord("D"));
 key_up = keyboard_check_pressed(ord("W"));
-attack_key = keyboard_check_pressed(ord("X"));
+attack_key = keyboard_check_pressed(ord("J"));
 
 //Horizontal Movement
 if (key_left) { 
@@ -142,7 +142,7 @@ if (xprevious &lt; x) {
 
 //Attack State
 image_speed = .5;
-if (sprite_index == spr_player_walk) {
+if (sprite_index == attack_key) {
     sprite_index = spr_attack_right;
 }
 </string>
