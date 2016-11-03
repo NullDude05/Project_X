@@ -32,6 +32,8 @@ grav = 0.2;
 grounded = 0;
 spd = 3;
 jsp = 5;
+slideSpeed = 2.5;
+slideFrames = 27;
 </string>
           </argument>
         </arguments>
@@ -59,6 +61,7 @@ jsp = 5;
 key_left = keyboard_check_direct(ord("A"));
 key_right = keyboard_check_direct(ord("D"));
 key_up = keyboard_check_pressed(ord("W"));
+key_down = keyboard_check_pressed(ord("S"));
 attack_key = keyboard_check_pressed(ord("J"));
 
 //Horizontal Movement
@@ -89,6 +92,12 @@ hsp = 0;
 //Vertical Movement
 if (key_up) &amp;&amp; (grounded){
     vsp = -8;
+}
+
+//Slide Animations
+if (key_down) {
+    sprite_index = spr_slide;
+    slideSpeed = 2.5;
 }
 
 //Gravity
