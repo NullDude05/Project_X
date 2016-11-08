@@ -25,19 +25,13 @@
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>ground = true;
-isStep = false;
-stepTimer = 0;
-vel = 0;//Our current movement speed
-canMinJump = false;
-
-//Physics variables
-jumpSpeed = 4/75;
-walkSpeed = 1.296875;
-grav = 0.25;
-maxVspeed = 7;
-stepSpeed = 1/7;
-stepFrames = 7;
+            <string>///Setting Player Convars
+hsp = 0;
+vsp = 0;
+grav = 0.2;
+grounded = 0;
+spd = 3;
+jsp = 5;
 </string>
           </argument>
         </arguments>
@@ -60,215 +54,97 @@ stepFrames = 7;
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>  //Check if we are on the ground
-  if place_meeting(x, y+vspeed+1, par_wall)
-  ground = true;
-  else 
-  ground = false;
-    
-     if ground = true
-     { 
-          //Movement 
-    if keyboard_check(vk_right) &amp;&amp; !place_meeting(x+vel+1, y, par_wall)
-    {
-    image_xscale = 1;
-    if initStep == true
-    {
-    initStep = false;
-    isStep = true;
-    } 
-    else if isStep == false
-    {
-    vel = walkSpeed;
-    
+            <string>///Player Movement
+//Key Vars
+key_left = keyboard_check_direct(ord("A"));
+key_right = keyboard_check_direct(ord("D"));
+key_up = keyboard_check_pressed(ord("W"));
+attack_key = keyboard_check_pressed(ord("J"));
+
+//Horizontal Movement
+if (key_left) { 
+    if (hsp &gt; -3) { 
+    hsp -= 0.15;
+    //right wall jump
+    if (place_meeting(x+1, y, par_wall) &amp;&amp; !place_meeting(x, y+1, par_wall) &amp;&amp; !key_right) {
+    vsp = -jsp;
     }
-    
     }
-    
-    else if keyboard_check(vk_left) &amp;&amp; !place_meeting(x+vel-1, y, par_wall)
-    {
-    image_xscale = -1;
+}
+if (key_right) {
+    if (hsp &lt; 3) {
+    hsp += 0.15;
+    //Left Wall Jump
+    if (place_meeting(x-1, y, par_wall) &amp;&amp; !place_meeting(x, y+1, par_wall) &amp;&amp; !key_left) {
+    vsp = -jsp;
     }
-    
-    if initStep == true
-    {
-    initStep = false;
-    isStep = true;
-    
     }
-    else if isStep == false{
-    vel = +walkSpeed;
-    sprite_index = spr_player;//Something;
-    }
-    
-    }
-    
-    else {
-    
-    sprite_index = spr_player;//JUmpint animation
-    if keyboard_check(vk_right) &amp;&amp; !place_meeting(x+vel+1, y, par_wall) {
-    vel = moveSpeed;
-    image_xscale = 1;
-    }
-    
-    else if keyboard_check(vk_left) &amp;&amp; !place_meeting(x+vel-1, y, par_wall)
-    {
-    vel = -moveSpeed;
-    image_xscale = -1;
-    
-    }
-    
-    else {
-    vel = 0;
-    }
-    
-//Allow Movement
-x += vel;
+}
+
+//Horizontal Stop
+if(!key_left &amp;&amp; !key_right) or (key_left &amp;&amp; key_right) {
+hsp = 0;
+}
+
+//Vertical Movement
+if (key_up) &amp;&amp; (grounded){
+    vsp = -8;
+}
 
 //Gravity
-if ground == true{
+vsp += grav;
 
-gravity = 0;
-canMinJump = true;
-}
-else{
-gravity = grav;
-if vspeed &gt; maxVspeed
-vspeed = maxVspeed;
-}
 
-//Jumping
-if ground == true &amp;&amp; keyboard_check_pressed(ord('Z')){
-vspeed = -jumpSpeed;
-sprite_index = sdfsd//jump animate
-ground = false;
-}
-
-//MinJumping
-if ground == false &amp;&amp; vspeed &lt; 0 &amp;&amp; canMinJump == true &amp;&amp; !keyboard_check(ord('Z'))
-{
-canMinJump = false;
-vspeed = 0;
-}
-}
-    
-    
-    ///Player Movement
-    //Key Vars
-    key_left = keyboard_check_direct(ord("A"));
-    key_right = keyboard_check_direct(ord("D"));
-    key_up = keyboard_check_pressed(ord("W"));
-    attack_key = keyboard_check_pressed(ord("J"));
-    attack_key = mouse_check_button_pressed(ord("mb_left"));
-    
-    //Horizontal Movement
-    if (key_left) { 
-        if (hsp &gt; -3) { 
-        hsp -= 0.15;
-        //right wall jump
-        if (place_meeting(x+1, y, par_wall) &amp;&amp; !place_meeting(x, y+1, par_wall) &amp;&amp; !key_right) {
-        vsp = -jsp;
-        }
-        }
-    }
-    if (key_right) {
-        if (hsp &lt; 3) {
-        hsp += 0.15;
-        //Left Wall Jump
-        if (place_meeting(x-1, y, par_wall) &amp;&amp; !place_meeting(x, y+1, par_wall) &amp;&amp; !key_left) {
-        vsp = -jsp;
-        }
-        }
-    }
-    
-    //Horizontal Stop
-    if(!key_left &amp;&amp; !key_right) or (key_left &amp;&amp; key_right) {
+//Horizontal Collisions 
+if place_meeting(x+hsp, y, par_wall) {
+    while(!place_meeting(x+sign(hsp), y, par_wall)) x += sign(hsp);
     hsp = 0;
+}
+
+//Finalize Horizontal
+x += hsp;
+
+//Vertical Collisions
+if place_meeting(x, y+vsp, par_wall) {
+    while(!place_meeting(x, y+sign(vsp), par_wall)) y += sign(vsp);
+    if(sign(vsp) == 1) {
+    grounded = 1;
     }
-    
-    //Vertical Movement
-    if (key_up) &amp;&amp; (grounded){
-        vsp = -8;
-    }
-    
-    //Gravity
-    vsp += grav;
-    
-    
-    //Horizontal Collisions 
-    if place_meeting(x+hsp, y, par_wall) {
-        while(!place_meeting(x+sign(hsp), y, par_wall)) x += sign(hsp);
-        hsp = 0;
-    }
-    
-    //Finalize Horizontal
-    x += hsp;
-    
-    //Vertical Collisions
-    if place_meeting(x, y+vsp, par_wall) {
-        while(!place_meeting(x, y+sign(vsp), par_wall)) y += sign(vsp);
-        if(sign(vsp) == 1) {
-        grounded = 1;
-        }
-        vsp = 0;
-    }
-    else {
-        grounded = 0;
-    }
-    
-    //Finalize Vertical
-    y += vsp;
-    
-    //Animate
-        if (xprevious != x) {
-        sprite_index = spr_player_walk;
-        image_speed = .3;      
-    } else { 
-        sprite_index = spr_player;
-    }
-    
-    //Control direction the player is facing
-    if (yprevious != y) {
-        sprite_index = spr_jump;
-        image_speed = 0;
-        image_index = y&gt;yprevious;
-    } else {
-    if (xprevious &lt; x) {
-        image_xscale = 1;
-    } else if (xprevious &gt; x) {
-        image_xscale = -1;
-    }
-    }
-    
-    //Attack State
-    image_speed = .5;
-    if (sprite_index == attack_key) {
-        sprite_index = spr_attack_right;
-    }
-</string>
-          </argument>
-        </arguments>
-      </action>
-    </event>
-    <event eventtype="4" ename="par_wall">
-      <action>
-        <libid>1</libid>
-        <id>603</id>
-        <kind>7</kind>
-        <userelative>0</userelative>
-        <isquestion>0</isquestion>
-        <useapplyto>-1</useapplyto>
-        <exetype>2</exetype>
-        <functionname></functionname>
-        <codestring></codestring>
-        <whoName>self</whoName>
-        <relative>0</relative>
-        <isnot>0</isnot>
-        <arguments>
-          <argument>
-            <kind>1</kind>
-            <string>move_contact_solid(direction, 12);
-vspeed = 0;
+    vsp = 0;
+}
+else {
+    grounded = 0;
+}
+
+//Finalize Vertical
+y += vsp;
+
+//Animate
+    if (xprevious != x) {
+    sprite_index = spr_player_walk;
+    image_speed = .3;      
+} else { 
+    sprite_index = spr_player;
+}
+
+//Control direction the player is facing
+if (yprevious != y) {
+    sprite_index = spr_jump;
+    image_speed = 0;
+    image_index = y&gt;yprevious;
+} else {
+if (xprevious &lt; x) {
+    image_xscale = 1;
+} else if (xprevious &gt; x) {
+    image_xscale = -1;
+}
+}
+
+//Attack State
+image_speed = .5;
+if (sprite_index == attack_key) {
+    sprite_index = spr_attack_right;
+}
 </string>
           </argument>
         </arguments>

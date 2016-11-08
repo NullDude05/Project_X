@@ -9,19 +9,18 @@
     <sprite>sprites\spr_wall</sprite>
     <sprite>sprites\ground_grass</sprite>
     <sprite>sprites\vertical_platform</sprite>
+    <sprite>sprites\spr_falling_brick</sprite>
     <sprite>sprites\bg_floating_platform</sprite>
     <sprite>sprites\Slide_platform</sprite>
     <sprite>sprites\spr_finish</sprite>
     <sprites name="Player">
-      <sprite>sprites\spr_jump</sprite>
+      <sprite>sprites\spr_attack_right</sprite>
       <sprite>sprites\spr_player</sprite>
       <sprite>sprites\spr_mask</sprite>
       <sprite>sprites\spr_player_walk</sprite>
+      <sprite>sprites\spr_jump</sprite>
     </sprites>
     <sprite>sprites\sprite8</sprite>
-    <sprite>sprites\sprite13</sprite>
-    <sprite>sprites\sprite14</sprite>
-    <sprite>sprites\sprite15</sprite>
   </sprites>
   <backgrounds name="background">
     <background>background\bg_clouds</background>
@@ -36,8 +35,6 @@
     <object>objects\obj_floating_platform</object>
     <object>objects\obj_vertical_platform</object>
     <object>objects\par_wall</object>
-    <object>objects\obj_finish_flag</object>
-    <object>objects\enemy1</object>
   </objects>
   <rooms name="rooms">
     <room>rooms\rm_skyroom</room>
