@@ -13,14 +13,15 @@
     <sprite>sprites\bg_floating_platform</sprite>
     <sprite>sprites\Slide_platform</sprite>
     <sprite>sprites\spr_finish</sprite>
-    <sprites name="Player">
+    <sprites name="Player1">
       <sprite>sprites\spr_attack_right</sprite>
       <sprite>sprites\spr_player</sprite>
       <sprite>sprites\spr_mask</sprite>
       <sprite>sprites\spr_player_walk</sprite>
-      <sprite>sprites\spr_jump</sprite>
       <sprite>sprites\spr_slide</sprite>
+      <sprite>sprites\spr_jump</sprite>
     </sprites>
+    <sprite>sprites\spr_solid</sprite>
   </sprites>
   <backgrounds name="background">
     <background>background\bg_clouds</background>
@@ -28,13 +29,17 @@
     <background>background\sky_blue</background>
   </backgrounds>
   <paths name="paths"/>
+  <scripts name="scripts">
+    <script>scripts\drawSelf.gml</script>
+  </scripts>
   <objects name="objects">
-    <object>objects\obj_player</object>
     <object>objects\obj_falling_brick</object>
     <object>objects\obj_ground_grass</object>
     <object>objects\obj_floating_platform</object>
     <object>objects\obj_vertical_platform</object>
     <object>objects\par_wall</object>
+    <object>objects\obj_player2</object>
+    <object>objects\obj_solid</object>
   </objects>
   <rooms name="rooms">
     <room>rooms\rm_skyroom</room>
